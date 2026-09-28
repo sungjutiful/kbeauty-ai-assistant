@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>K-Beauty 트렌드 AI 비서</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="config.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div>
+      <h1>K-Beauty 트렌드 AI 비서</h1>
+      <p class="sub">Google Trends 성분 검색 관심도 데이터를 이해하고 답하는 AI</p>
+    </div>
+    <span id="server-status" class="status">서버 연결 확인 중…</span>
+  </header>
+
+  <div id="cold-banner" class="banner hidden">
+    무료 서버가 잠들어 있어 첫 요청에 최대 1분 정도 걸릴 수 있어요. 잠시만 기다려 주세요.
+  </div>
+
+  <!-- 데이터 요약 -->
+  <section class="summary card" id="summary">
+    <div class="summary-item"><span class="label">키워드</span><span id="s-keyword">-</span></div>
+    <div class="summary-item"><span class="label">기간</span><span id="s-period">-</span></div>
+    <div class="summary-item"><span class="label">데이터 수</span><span id="s-count">-</span></div>
+    <div class="summary-item"><span class="label">평균</span><span id="s-avg">-</span></div>
+    <div class="summary-item"><span class="label">최고</span><span id="s-max">-</span></div>
+    <div class="summary-item"><span class="label">최신</span><span id="s-latest">-</span></div>
+    <div class="summary-item wide"><span class="label">최근 트렌드</span><span id="s-trend">-</span></div>
+  </section>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="chat">AI 채팅</button>
+    <button class="tab" data-tab="data">데이터 관리</button>
+  </nav>
+
+  <!-- 채팅 탭 -->
+  <main id="tab-chat" class="tab-panel">
+    <aside class="card history">
+      <div class="history-head">
+        <h2>대화 기록</h2>
+        <button id="new-chat" class="btn small">+ 새 대화</button>
+      </div>
+      <ul id="conv-list" class="conv-list"></ul>
+    </aside>
+
+    <section class="card chat">
+      <div id="messages" class="messages">
+        <div class="empty">예: "요즘 PDRN 관심도 어때?", "가장 높았던 때는 언제야?"</div>
+      </div>
+      <form id="chat-form" class="chat-form">
+        <input id="chat-input" type="text" placeholder="데이터에 대해 물어보세요" maxlength="1000" autocomplete="off" required />
+        <button class="btn" type="submit" id="send-btn">보내기</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- 데이터 관리 탭 -->
+  <main id="tab-data" class="tab-panel hidden">
+    <section class="card">
+      <h2 id="form-title">새 데이터 추가</h2>
+      <form id="data-form" class="data-form">
+        <input type="hidden" id="data-id" />
+        <label>날짜 <input type="date" id="data-date" required /></label>
+        <label>관심도 (0~100) <input type="number" id="data-value" min="0" max="100" required /></label>
+        <label>메모 <input type="text" id="data-memo" value="PDRN" maxlength="100" /></label>
+        <button class="btn" type="submit" id="data-submit">추가</button>
+        <button class="btn ghost hidden" type="button" id="data-cancel">취소</button>
+      </form>
+      <p id="data-msg" class="msg"></p>
+    </section>
+
+    <section class="card">
+      <h2>데이터 목록 <span id="data-count" class="muted"></span></h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>날짜</th><th>관심도</th><th>메모</th><th></th></tr></thead>
+          <tbody id="data-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
